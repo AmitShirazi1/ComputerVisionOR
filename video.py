@@ -1,0 +1,1 @@
+''' Runs predictions on a video using openCV. '''

@@ -1,0 +1,2 @@
+-- Structure: library==version --
+-- example: numpy==10.1.2 --
