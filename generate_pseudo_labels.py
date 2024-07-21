@@ -24,7 +24,7 @@ def generate_pseudo_labels(model, video_path, save_dir):
                     # height = ((y2 - y1)).item()
                     label = int(box.cls.item())
             
-                    x_center, y_center, w, h = [box.xyxy[i][j].item() for i in range(2) for j in range(2)]
+                    x_center, y_center, w, h = [box.xyxy[0][i].item() for i in range(4)]
                     f.write(f'{label} {x_center} {y_center} {w} {h}\n')
                     print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
                     # video_pseudo_labels.append((cls, x_center, y_center, width, height))
