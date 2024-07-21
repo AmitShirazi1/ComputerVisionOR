@@ -1,2 +1,6 @@
--- Structure: library==version --
--- example: numpy==10.1.2 --
+opencv-python
+numpy
+torch
+torchvision
+ultralytics
+matplotlib

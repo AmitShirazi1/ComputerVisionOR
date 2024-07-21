@@ -1,0 +1,5 @@
+cv_hw1/
+pseudo_labels/
+runs/
+*.pt
+*.pyc

@@ -1,0 +1,23 @@
+# ''' This file contains the information about the model and the dataset,
+#     in usage of the YOLO model. '''
+
+# Paths to the dataset
+train: /datashare/HW1/labeled_image_data/images/train  # Path to training images
+val: /datashare/HW1/labeled_image_data/images/val      # Path to validation images
+
+# Path to the labels
+train_labels: /datashare/HW1/labeled_image_data/labels/train  # Path to training labels
+val_labels: /datashare/HW1/labeled_image_data/labels/val      # Path to validation labels
+
+# # Path to the ID and OOD videos (if needed)
+# id_videos: /datashare/HW1/id_video_data  # Path to in-distribution videos
+# ood_videos: /datashare/HW1/ood_video_data  # Path to out-of-distribution videos
+
+# Number of classes
+nc: 3  # Number of classes in the dataset
+
+# Class names
+names: 
+- 'Empty'
+- 'Tweezers'
+- 'Needle_driver'
