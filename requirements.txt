@@ -2,5 +2,5 @@ opencv-python
 numpy
 torch
 torchvision
-ultralytics
+ultralytics==8.2.62
 matplotlib
