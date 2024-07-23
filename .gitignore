@@ -1,5 +1,7 @@
 cv_hw1/
-pseudo_labels/
+pseudo_labels*/
 runs/
-*.pt
+yolo_pt_files/
 *.pyc
+*outputs/
+*.pt

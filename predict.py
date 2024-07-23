@@ -4,33 +4,64 @@ import argparse
 import cv2
 import torch
 from ultralytics import YOLO
+import os
+import shutil
+from consts import PT_FILES_PATH, CONFIDENCE_LEVEL, create_dir
+from visualization import visualize_predictions_on_image
 
-def predict(image_path, model_path='model_finetuned.pt'):
-    model = YOLO(model_path)
+
+def predict_on_image(model, image_path, save_dir, confidence):
     image = cv2.imread(image_path)
     results = model(image)
 
     for result in results:
-        labels = result['labels']
-        boxes = result['boxes']
+        with open(save_dir+'.txt', 'w') as f:
+            labels = list()
+            for box in result.boxes:
+                box_conf = float(box.conf.item())
+                if box_conf >= confidence:
+                    label = int(box.cls.item())
+                    labels.append(label)
+                    
+                    x_center, y_center, w, h = [i.item() for i in box.xywhn[0]]
+                    f.write(f'{label} {x_center} {y_center} {w} {h}\n')
+    return image, results
 
-        for label, box in zip(labels, boxes):
-            class_id = label
-            x_center, y_center, w, h = box
-            x_min = int((x_center - w / 2) * image.shape[1])
-            y_min = int((y_center - h / 2) * image.shape[0])
-            x_max = int((x_center + w / 2) * image.shape[1])
-            y_max = int((y_center + h / 2) * image.shape[0])
-            cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
-            cv2.putText(image, f'{class_id}', (x_min, y_min - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
-    
-    cv2.imshow('Predictions', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+
+def load_model_and_predict(model_path, data_path, labels_folder, confidence=0.5, visualize=True):
+    # Load trained model
+    model = YOLO(PT_FILES_PATH+model_path)
+
+    labels_dir = create_dir(labels_folder)
+
+    images = os.listdir(data_path)
+    for img in images:
+        img_path = data_path + img
+        img_name = img.split('.')[0]
+        img_object, results = predict_on_image(model, img_path, labels_dir+img_name, confidence)
+        if visualize:
+            visual_img = create_dir('/images_outputs/visualizations/')
+            visualize_predictions_on_image(img_object, visual_img+img, results, confidence)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Predict bounding boxes on an image.')
-    parser.add_argument('--image_path', type=str, required=True, help='Path to the input image.')
+    parser.add_argument('--image_path', type=str, required=False, help='Path to the input image.')
+    parser.add_argument('--images_folder', type=str, required=False, help='Path to the folder containing one or more images.')
     args = parser.parse_args()
+    if not args.image_path and not args.images_folder:
+        raise ValueError('Please provide either an image path or an images folder.')
+    if args.image_path and args.images_folder:
+        raise ValueError('Please provide only one of the following: an image path or an images folder.')
 
-    predict(args.image_path)
+    images_path = create_dir('/images_outputs/')
+    if args.image_path:
+        images_path = create_dir(images_path+'image/')
+        # Copy the file
+        shutil.copy(args.image_path, images_path)
+    else:
+        images_path = args.images_folder
+
+    weights_file = 'model_finetuned.pt' if os.path.exists(PT_FILES_PATH+'model_finetuned.pt') else 'model_trained.pt'
+
+    load_model_and_predict(weights_file, images_path, '/images_outputs/predictions/', confidence=CONFIDENCE_LEVEL)

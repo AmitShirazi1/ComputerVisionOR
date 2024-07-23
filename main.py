@@ -1,7 +1,8 @@
-from train import train
-from generate_pseudo_labels import predict_on_ID
-from finetune import finetunning
+from train import *
+from video import predict_on_ID, predict_on_OOD
+from consts import CONFIDENCE_LEVEL
 
 train(epochs=7)
-predict_on_ID(confidence=0)
-finetunning()
+predict_on_ID(confidence=CONFIDENCE_LEVEL)
+finetunning(epochs=7)
+predict_on_OOD(confidence=CONFIDENCE_LEVEL)
