@@ -3,7 +3,9 @@ ID_DATA_PATH = '/datashare/HW1/id_video_data/'
 OOD_DATA_PATH = '/datashare/HW1/ood_video_data/'
 
 PT_FILES_PATH = './yolo_pt_files/'
-CONFIDENCE_LEVEL = 0
+
+DEFAULT_CONFIDENCE = 0.7
+CLASSES = ['Empty', 'Tweezers', 'Needle Driver']
 
 import os
 def create_dir(relative_dir):
