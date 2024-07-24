@@ -52,6 +52,7 @@ This will:
 - Predict pseudo labels on the ID videos.
 - Fine-tune the model for 25 epochs using the pseudo-labeled data.
 - Predict on the OOD videos with visualization.
+(Note that you can change the number of epochs to your liking, it is set in the main.py file.)
 
 ### 2. Predicting on Images
 
