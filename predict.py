@@ -11,10 +11,11 @@ from input_processing import *
 
 
 def predict_on_image(model, image_path, save_dir, confidence):
-    image = cv2.imread(image_path)
-    results = model(image)
+    image = cv2.imread(image_path)  # Read the image
+    results = model(image)  # Return a generator of Results objects
 
     for result in results:
+        # Save the predicted labels to a file
         with open(save_dir+'.txt', 'w') as f:
             labels = list()
             for box in result.boxes:
@@ -29,24 +30,23 @@ def predict_on_image(model, image_path, save_dir, confidence):
 
 
 def load_model_and_predict(model_path, data_path, labels_folder, visual_folder, confidence=0.5, visualize=True):
-    # Load trained model
-    model = YOLO(PT_FILES_PATH+model_path)
+    model = YOLO(PT_FILES_PATH+model_path)  # Load trained model
 
-    labels_dir = create_dir(labels_folder)
+    labels_dir = create_dir(labels_folder)  # Create a directory to save the predicted labels
 
-    images = os.listdir(data_path)
+    images = os.listdir(data_path)  # Get the list of images in the folder
     for img in images:
         img_path = data_path + img
         img_name = img.split('.')[0]
         img_object, results = predict_on_image(model, img_path, labels_dir+img_name, confidence)
         if visualize:
-            visual_dir = create_dir(visual_folder)
+            visual_dir = create_dir(visual_folder)  # Create a directory to save the visualizations
             visualize_predictions_on_image(model, img_object, visual_dir+img, results, confidence)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Predict bounding boxes on an image.')
-    parser.add_argument('-p', '--image_path', type=str, required=False, help='Path to the input image.')
+    parser.add_argument('-i', '--image_path', type=str, required=False, help='Path to the input image.')
     parser.add_argument('-d', '--images_folder', type=str, required=False, help='Path to the folder containing one or more images.')
     parser.add_argument('-c', '--conf_level', type=float, required=False, default=0.5, help='Confidence threshold for predictions.')
     args = parser.parse_args()

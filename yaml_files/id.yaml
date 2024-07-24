@@ -1,0 +1,19 @@
+# ''' This file contains the information about the model and the dataset,
+#     in usage of the YOLO model. '''
+
+# Paths to the dataset
+train: /home/student/hw1/image_and_ID_data/images/train  # Path to training images
+val: /home/student/hw1/image_and_ID_data/images/val      # Path to validation images
+
+# Path to the labels
+train_labels: /home/student/hw1/image_and_ID_data/labels/train  # Path to training labels
+val_labels: /home/student/hw1/image_and_ID_data/labels/val      # Path to validation labels
+
+# Number of classes
+nc: 3  # Number of classes in the dataset
+
+# Class names
+names: 
+- 'Empty'
+- 'Tweezers'
+- 'Needle_driver'

@@ -5,3 +5,6 @@ yolo_pt_files/
 *.pyc
 *outputs/
 *.pt
+*OOD/
+*ID/
+image_and_ID_data/
