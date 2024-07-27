@@ -54,6 +54,8 @@ This will:
 - Predict on the OOD videos with visualization.
 (Note that you can change the number of epochs to your liking, it is set in the main.py file.)
 
+A link to the final model weights I used - [model_finetuned.pt](https://drive.google.com/file/d/1ikFNuP6OKctOnAODgeUitsjJUWMow2XJ/view?usp=sharing)
+
 ### 2. Predicting on Images
 
 To run predictions on images:
