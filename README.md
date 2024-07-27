@@ -68,6 +68,8 @@ or
 python predict.py -d <images_folder> -c <confidence_level>
 ```
 
+Note that the -c parameter is optional, and if not specified, the default value is 0.7.
+
 ### 3. Predicting on Videos
 
 To run predictions on videos:
@@ -81,6 +83,8 @@ or
 ```sh
 python video.py -d <videos_folder> -c <confidence_level>
 ```
+
+Note that the -c parameter is optional, and if not specified, the default value is 0.7.
 
 ## File Descriptions
 
