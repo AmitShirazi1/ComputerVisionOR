@@ -2,7 +2,6 @@
 
 from ultralytics import YOLO
 import os
-from ultralytics import YOLO
 import cv2
 from consts import IMAGE_DATA_PATH, ID_DATA_PATH, PT_FILES_PATH
 
