@@ -100,12 +100,3 @@ Note that the -c parameter is optional, and if not specified, the default value 
 - **video.py**: Script for running predictions on videos.
 - **visualization.py**: Contains functions for visualizing predictions.
 
-## Contributing
-
-Feel free to open issues or submit pull requests for improvements and bug fixes.
-
-## License
-
-This project is currently not licensed for public use.
-
----
